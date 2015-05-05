@@ -1,0 +1,15 @@
+data_set <- read.csv("data_set.txt", sep=";", stringsAsFactors=FALSE)
+data<-subset(data_set,Date == "1/2/2007" | Date == "2/2/2007")
+data$Date <- as.Date(data$Date, "%d/%m/%Y")
+data$Sub_metering_1 <- as.numeric(data$Sub_metering_1)
+data$Sub_metering_2 <- as.numeric(data$Sub_metering_2)
+data$Sub_metering_3 <- as.numeric(data$Sub_metering_3)
+
+png(filename="plot3.png",width = 480,height = 480)
+plot(data$Sub_metering_1, type = "l", xaxt = "n", xlab = "",ylab = "Energy sub metering")
+lines(data$Sub_metering_2,col = "red")
+lines(data$Sub_metering_3,col = "blue")
+legend("topright", c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), 
+       lty=c(1,1), col=c("black","red","blue"))
+axis(1,at=c(0,1440,2880),labels=c("Thu", "Fri", "Sat"))
+dev.off()

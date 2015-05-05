@@ -1,0 +1,8 @@
+data_set <- read.csv("data_set.txt", sep=";", stringsAsFactors=FALSE)
+data<-subset(data_set,Date == "1/2/2007" | Date == "2/2/2007")
+data$Date <- as.Date(data$Date, "%d/%m/%Y")
+data$Global_active_power <- as.numeric(data$Global_active_power)
+png(filename="plot2.png",width = 480,height = 480)
+plot(data$Global_active_power, type = "l", xaxt = "n", xlab = "",ylab = "Global Active Power (Kilowatts)")
+axis(1,at=c(0,1440,2880),labels=c("Thu", "Fri", "Sat"))
+dev.off()
